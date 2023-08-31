@@ -2,13 +2,15 @@
 declare(strict_types=1);
 
 use Eurosat7\Csvimporter\CsvImportController;
-use Eurosat7\Csvimporter\EntityRepository;use Eurosat7\Csvimporter\FileToEntitysConverter;use Eurosat7\Csvimporter\FileTools;
+use Eurosat7\Csvimporter\EntityRepository;
+use Eurosat7\Csvimporter\FileToEntitysConverter;
+use Eurosat7\Csvimporter\FileTools;
 
 $config = include(dirname(__DIR__) . '/bootstrap.php');
 $fileTools = new FileTools();
 $entityRepository = new EntityRepository($config["mysqlConnection"]);
-$FileToEntitysConverter = new FileToEntitysConverter();
-$controller = new CsvImportController($entityRepository, $fileTools, $FileToEntitysConverter);
+$fileToEntitysConverter = new FileToEntitysConverter();
+$controller = new CsvImportController($entityRepository, $fileTools, $fileToEntitysConverter);
 
 ?><!doctype html>
 <html lang="en">
