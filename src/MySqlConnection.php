@@ -30,19 +30,17 @@ class MySqlConnection
     public function insertIgnore(string $table, array $struct): bool
     {
         $sql = "INSERT IGNORE INTO `$table` SET ";
+        $types = "";
+        $values = [];
         foreach ($struct as [$type, $field, $value]) {
             $sql .= "$field = ? ,";
+            $types .= $type;
+            $values[] = $value;
         }
         $sql = rtrim($sql, ",");
         $stmt = $this->mysqli->prepare($sql);
         if ($stmt === false) {
             return false;
-        }
-        $types = "";
-        $values = [];
-        foreach ($struct as [$type, $field, $value]) {
-            $types .= $type;
-            $values[] = $value;
         }
         $stmt->bind_param($types, ...$values);
 
