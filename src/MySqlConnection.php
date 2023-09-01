@@ -8,6 +8,7 @@ use mysqli;
 class MySqlConnection
 {
     private readonly mysqli $mysqli;
+    private bool $has_transaction = false;
 
     public function __construct(
         private readonly string $host,
@@ -22,6 +23,13 @@ class MySqlConnection
             $this->password,
             $this->database,
         );
+    }
+
+    public function __destruct()
+    {
+        if ($this->has_transaction) {
+            echo "error: transation was not commited!";
+        }
     }
 
     /**
@@ -46,4 +54,25 @@ class MySqlConnection
 
         return $stmt->execute();
     }
+
+    public function transaction_begin(): void
+    {
+        if ($this->has_transaction) {
+            echo "warning: transation already running.";
+        }
+        $this->mysqli->autocommit(false);
+        $this->mysqli->begin_transaction();
+        $this->has_transaction = true;
+    }
+
+    public function transaction_commit(): void
+    {
+        if (!$this->has_transaction) {
+            echo "warning: no transation running. nothing to commit.";
+        }
+        $this->mysqli->commit();
+        $this->mysqli->autocommit(true);
+        $this->has_transaction = false;
+    }
+
 }
