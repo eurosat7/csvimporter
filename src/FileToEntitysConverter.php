@@ -7,6 +7,7 @@ class FileToEntitysConverter
 {
     public function processFile(string $filename, EntityRepository $entityRepository): int
     {
+        $started = microtime(true);
         $skipFirstLine = true;
         $stream = fopen($filename, "rb");
         if ($stream === false) {
@@ -36,8 +37,16 @@ class FileToEntitysConverter
             $success = $entityRepository->save($entity);
             $imported += $success ? 1 : 0;
             echo $success ? "+" : "-";
+            if ($lineNo % 1000 === 0) {
+                flush();
+                if (connection_aborted()) {
+                    die ("connection_aborted");
+                }
+            }
         }
         fclose($stream);
+        $duration = microtime(true) - $started;
+        echo "\r\nduration: " , $duration , " sec.\r\n";
 
         return $imported;
     }
