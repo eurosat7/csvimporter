@@ -7,6 +7,7 @@ class FileToEntitysConverter
 {
     public function processFile(string $filename, EntityRepository $entityRepository): int
     {
+        $entityRepository->transaction_begin();
         $started = microtime(true);
         $skipFirstLine = true;
         $stream = fopen($filename, "rb");
@@ -45,6 +46,7 @@ class FileToEntitysConverter
             }
         }
         fclose($stream);
+        $entityRepository->transaction_commit();
         $duration = microtime(true) - $started;
         echo "\r\nduration: " , $duration , " sec.\r\n";
 
