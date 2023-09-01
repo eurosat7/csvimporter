@@ -25,7 +25,7 @@ class MySqlConnection
     }
 
     /**
-     * @param array<int, array{0:string,1:string,2:int|string|float|null}> $struct
+     * @param array<int, array{0:string,1:string,2:int|string|float|bool|null}> $struct
      */
     public function insertIgnore(string $table, array $struct): bool
     {
