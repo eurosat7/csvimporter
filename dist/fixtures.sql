@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS csv;
 USE csv;
 
-CREATE USER "csvimporter"@"%" IDENTIFIED BY 'csvimporterpassword';
+CREATE USER IF NOT EXISTS "csvimporter"@"%" IDENTIFIED BY 'csvimporterpassword';
 GRANT ALL ON csv.* TO "csvimporter"@"%";
 
 CREATE TABLE IF NOT EXISTS Entity
@@ -12,3 +12,5 @@ CREATE TABLE IF NOT EXISTS Entity
     cost        FLOAT        NOT NULL DEFAULT 0.0,
     amount      INT          NOT NULL DEFAULT 0
 );
+
+TRUNCATE Entity;
