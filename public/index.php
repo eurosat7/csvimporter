@@ -31,5 +31,8 @@ $controller = new CsvImportController($entityRepository, $fileTools, $fileToEnti
     </div>
 </form>
 <pre><?php $controller->process($_FILES['file']['tmp_name'] ?? null); ?></pre>
+<h2>debug</h2>
+<pre>post_max_size: <?php echo ini_get("post_max_size"); ?></pre>
+<pre>upload_max_filesize: <?php echo ini_get("upload_max_filesize"); ?></pre>
 </body>
 </html>
