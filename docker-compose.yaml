@@ -8,6 +8,7 @@ services:
       - "8089:80"
     volumes:
       - ./:/var/www/html
+      - ./dist/php.ini:/usr/local/etc/php/conf.d/local.ini
     environment:
       XDEBUG_CONFIG: remote_host=host.docker.internal
 
