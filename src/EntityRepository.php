@@ -3,19 +3,14 @@ declare(strict_types=1);
 
 namespace Eurosat7\Csvimporter;
 
-class EntityRepository
+class EntityRepository implements HasTransactionInterface
 {
+    use HasTransactionTrait;
+
     public function __construct(
         private readonly MySqlConnection $mysqlConnection
     )
     {
-    }
-
-    public function transaction_begin():void{
-        $this->mysqlConnection->transaction_begin();
-    }
-    public function transaction_commit():void{
-        $this->mysqlConnection->transaction_commit();
     }
 
     public function save(Entity $entity): bool
