@@ -8,13 +8,13 @@ namespace Eurosat7\Csvimporter;
  */
 trait HasTransactionTrait
 {
-    public function transaction_begin(): void
+    public function transactionBegin(): void
     {
-        $this->mysqlConnection->transaction_begin();
+        $this->mysqlConnection->transactionBegin();
     }
 
-    public function transaction_commit(): void
+    public function transactionCommit(): void
     {
-        $this->mysqlConnection->transaction_commit();
+        $this->mysqlConnection->transactionCommit();
     }
 }

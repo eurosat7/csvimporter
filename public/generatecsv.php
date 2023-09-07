@@ -1,6 +1,9 @@
 <?php
+// please run from inside docker.
+// > make docker-php-csv
+
 declare(strict_types=1);
-$rows = 10_000;
+$rows = 20_000;
 $filename = dirname(__DIR__) . "/generated_entities_for_testing.csv";
 
 echo "writing to file: ", $filename, "\r\n";

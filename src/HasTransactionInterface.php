@@ -5,7 +5,7 @@ namespace Eurosat7\Csvimporter;
 
 interface HasTransactionInterface
 {
-    public function transaction_begin(): void;
+    public function transactionBegin(): void;
 
-    public function transaction_commit(): void;
+    public function transactionCommit(): void;
 }

@@ -1,4 +1,6 @@
 <?php
+// should be served by docker at http://localhost:8089/public/
+// > make init
 declare(strict_types=1);
 
 use Eurosat7\Csvimporter\CsvImportController;

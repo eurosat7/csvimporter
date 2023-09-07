@@ -8,7 +8,7 @@ use mysqli;
 class MySqlConnection
 {
     private readonly mysqli $mysqli;
-    private bool $has_transaction = false;
+    private bool $hasTransaction = false;
 
     public function __construct(
         private readonly string $host,
@@ -27,7 +27,7 @@ class MySqlConnection
 
     public function __destruct()
     {
-        if ($this->has_transaction) {
+        if ($this->hasTransaction) {
             echo "error: transation was not commited!";
         }
     }
@@ -55,24 +55,24 @@ class MySqlConnection
         return $stmt->execute();
     }
 
-    public function transaction_begin(): void
+    public function transactionBegin(): void
     {
-        if ($this->has_transaction) {
+        if ($this->hasTransaction) {
             echo "warning: transation already running.";
         }
         $this->mysqli->autocommit(false);
         $this->mysqli->begin_transaction();
-        $this->has_transaction = true;
+        $this->hasTransaction = true;
     }
 
-    public function transaction_commit(): void
+    public function transactionCommit(): void
     {
-        if (!$this->has_transaction) {
+        if (!$this->hasTransaction) {
             echo "warning: no transation running. nothing to commit.";
         }
         $this->mysqli->commit();
         $this->mysqli->autocommit(true);
-        $this->has_transaction = false;
+        $this->hasTransaction = false;
     }
 
 }

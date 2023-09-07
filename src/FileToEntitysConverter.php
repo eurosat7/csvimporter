@@ -5,9 +5,12 @@ namespace Eurosat7\Csvimporter;
 
 class FileToEntitysConverter
 {
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     public function processFile(string $filename, EntityRepository $entityRepository): int
     {
-        $entityRepository->transaction_begin();
+        $entityRepository->transactionBegin();
         $started = microtime(true);
         $skipFirstLine = true;
         $stream = fopen($filename, "rb");
@@ -19,12 +22,13 @@ class FileToEntitysConverter
         $imported = 0;
         while (!feof($stream)) {
             $line = fgetcsv($stream);
-            if ($line === false) continue;
+            if ($line === false) {
+                continue;
+            }
             if (count($line) < 4) {
                 continue;
             }
             $lineNo++;
-            echo "\r\n", $lineNo, " . ";
             if ($skipFirstLine) {
                 $skipFirstLine = false;
                 continue;
@@ -38,17 +42,19 @@ class FileToEntitysConverter
             $success = $entityRepository->save($entity);
             $imported += $success ? 1 : 0;
             echo $success ? "+" : "-";
-            if ($lineNo % 1000 === 0) {
+            if ($lineNo % 100 === 0) {
+                echo " - ", $lineNo, "\r\n";
                 flush();
-                if (connection_aborted()) {
-                    die ("connection_aborted");
+                if (connection_aborted() !== 0) {
+                    return 0;
                 }
             }
         }
+        echo $lineNo, "\r\n";
         fclose($stream);
-        $entityRepository->transaction_commit();
+        $entityRepository->transactionCommit();
         $duration = microtime(true) - $started;
-        echo "\r\nduration: " , $duration , " sec.\r\n";
+        echo "\r\nduration: ", $duration, " sec.\r\n";
 
         return $imported;
     }
