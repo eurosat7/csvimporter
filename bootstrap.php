@@ -9,6 +9,8 @@ use Eurosat7\Csvimporter\InstanceContainer;
 use Eurosat7\Csvimporter\Services\FileToEntitysConverter;
 use Eurosat7\Csvimporter\Services\FileTools;
 
+include(__DIR__ . "/vendor/autoload.php");
+
 /** @var InstanceContainer $config */
 $config = include(__DIR__ . '/instanceContainer.php');
 $te = $config->templateEngine;

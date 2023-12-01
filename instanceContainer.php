@@ -8,8 +8,6 @@ use Eurosat7\Csvimporter\Database\MySqlConnection;
 use Eurosat7\Csvimporter\InstanceContainer;
 use Eurosat7\Csvimporter\Services\TemplateEngine;
 
-include(__DIR__ . "/vendor/autoload.php");
-
 return new InstanceContainer(
     mysqlConnection: new MySqlConnection(
         host: "mysql-csvimporter:3306",
