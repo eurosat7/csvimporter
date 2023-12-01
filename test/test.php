@@ -18,9 +18,11 @@ if (!file_exists($filename)) {
 }
 /** @var InstanceContainer $config */
 $config = include(dirname(__DIR__) . '/instanceContainer.php');
-$fileTools = new FileTools();
-$entityRepository = new EntityRepository($config->mysqlConnection);
-$fileToEntitysConverter = new FileToEntitysConverter();
-$controller = new CsvImportController($entityRepository, $fileTools, $fileToEntitysConverter);
+
+$controller = new CsvImportController(
+    entityRepository: new EntityRepository($config->mysqlConnection),
+    fileTools: new FileTools(),
+    fileToEntitysConverter: new FileToEntitysConverter()
+);
 $controller->setFile($filename);
 $controller->process();
