@@ -1,6 +1,8 @@
 CREATE DATABASE IF NOT EXISTS csv;
 USE csv;
 
+/* passwords and stuff should be protected and not be commited into git! */
+
 CREATE USER IF NOT EXISTS "csvimporter"@"%" IDENTIFIED BY 'csvimporterpassword';
 GRANT ALL ON csv.* TO "csvimporter"@"%";
 
