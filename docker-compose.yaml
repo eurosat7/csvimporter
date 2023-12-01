@@ -3,7 +3,7 @@ version: '3.7'
 
 services:
   webserver:
-    image: phpstorm/php-apache:8.1-xdebug3.1
+    image: phpstorm/php-apache:8.2-xdebug3.2
     restart: always
     ports:
       - "8089:80"
