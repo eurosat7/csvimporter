@@ -18,10 +18,11 @@ $te = $config->templateEngine;
 // as you can see the router component is missing
 // this code can currently only serve one page calles "index" running the CsvImportController
 
-$fileTools = new FileTools();
-$entityRepository = new EntityRepository($config->mysqlConnection);
-$fileToEntitysConverter = new FileToEntitysConverter();
-$controller = new CsvImportController($entityRepository, $fileTools, $fileToEntitysConverter);
+$controller = new CsvImportController(
+    entityRepository: new EntityRepository($config->mysqlConnection),
+    fileTools: new FileTools(),
+    fileToEntitysConverter: new FileToEntitysConverter()
+);
 
 $te->setController($controller);
 $te->page(
