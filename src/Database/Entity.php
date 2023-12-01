@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Eurosat7\Csvimporter;
+namespace Eurosat7\Csvimporter\Database;
 
 class Entity
 {

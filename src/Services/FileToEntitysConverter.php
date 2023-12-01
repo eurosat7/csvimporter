@@ -1,7 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Eurosat7\Csvimporter;
+namespace Eurosat7\Csvimporter\Services;
+
+use Eurosat7\Csvimporter\Database\Entity;
+use Eurosat7\Csvimporter\Database\EntityRepository;
 
 class FileToEntitysConverter
 {
