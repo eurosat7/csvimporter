@@ -11,17 +11,17 @@ class MySqlConnection
     private bool $hasTransaction = false;
 
     public function __construct(
-        private readonly string $host,
-        private readonly string $user,
-        private readonly string $password,
-        private readonly string $database,
+        string $host,
+        string $user,
+        string $password,
+        string $database,
     )
     {
         $this->mysqli = new mysqli(
-            $this->host,
-            $this->user,
-            $this->password,
-            $this->database,
+            $host,
+            $user,
+            $password,
+            $database,
         );
     }
 
