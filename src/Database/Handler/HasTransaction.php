@@ -1,9 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
-namespace Eurosat7\Csvimporter\Database;
+namespace Eurosat7\Csvimporter\Database\Handler;
 
-interface HasTransactionInterface
+interface HasTransaction
 {
     public function transactionBegin(): void;
 

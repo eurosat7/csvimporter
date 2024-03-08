@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Eurosat7\Csvimporter\Services;
@@ -14,7 +15,7 @@ class FileTools
         if (!file_exists($filename)) {
             return 0;
         }
-        $stream = fopen($filename, "rb");
+        $stream = fopen($filename, 'rb');
         if ($stream === false) {
             return 0;
         }

@@ -5,11 +5,15 @@ declare(strict_types=1);
 use Eurosat7\Csvimporter\Controller\CsvImportController;
 use Eurosat7\Csvimporter\Services\TemplateEngine;
 
-/** @var CsvImportController $controller */
-/** @var TemplateEngine $te */
-/** @var array<string,mixed> $vars */
+/**
+ * @var CsvImportController $controller
+ * @var TemplateEngine $te
+ * @var array<string,mixed> $vars
+ */
 
-$te->defaults("header", $vars); // allthough this looks cool we have no auto completion; Our IDE cannot help us!
+$controller->setFile($_FILES['file']['tmp_name'] ?? null);
+
+$te->defaults('header', $vars); // allthough this looks cool we have no auto completion; Our IDE cannot help us!
 ?>
 
     <form method="post" enctype="multipart/form-data">
@@ -22,9 +26,9 @@ $te->defaults("header", $vars); // allthough this looks cool we have no auto com
         </div>
     </form>
     <pre><?php
-        $controller->setFile($_FILES['file']['tmp_name'] ?? null);
-        $controller->process();
-        ?></pre>
+        $controller->process(); ?></pre>
 
-<?php $te->defaults("debug"); ?>
-<?php $te->defaults("footer"); ?>
+<?php
+$te->defaults('debug'); ?>
+<?php
+$te->defaults('footer');

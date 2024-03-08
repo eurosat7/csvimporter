@@ -49,3 +49,25 @@ docker-php-test:
 docker-test:
 	docker-compose exec webserver make test
 
+docker-phpinsights: start
+	docker-compose exec webserver make phpinsights
+phpinsights:
+	./vendor/bin/phpinsights -cphpinsights.php -vvv
+
+docker-pdepend: start
+	docker-compose exec webserver make pdepend
+pdepend:
+	-mkdir var/cache/pdepend
+	-mkdir pdepend
+	./vendor/bin/pdepend \
+	    --configuration=/var/www/html/pdepend.xml\
+        --dependency-xml=pdepend/dependency.xml \
+        --jdepend-chart=pdepend/jdepend.svg \
+        --jdepend-xml=pdepend/jdepend.xml \
+        --overview-pyramid=pdepend/pyramid.svg \
+        --summary-xml=pdepend/summary.xml \
+        --debug \
+        src
+
+#        \
+#		--coverage-report=pdepend/coverage.report \

@@ -1,5 +1,7 @@
 /vendor/
 /generated_entities_for_testing.csv
 /phpcpd.phar
+/pdepend
+/var/cache/pdepend
 /get-docker.sh
 /.idea/
