@@ -11,8 +11,6 @@ use Eurosat7\Csvimporter\Services\TemplateEngine;
  * @var array<string,mixed> $vars
  */
 
-$controller->setFile($_FILES['file']['tmp_name'] ?? null);
-
 $te->defaults('header', $vars); // allthough this looks cool we have no auto completion; Our IDE cannot help us!
 ?>
 
