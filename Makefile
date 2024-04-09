@@ -1,6 +1,6 @@
 default: init
 
-init: get-phpcpd composer start docker-test docker-sql docker-php-csv docker-php-test
+init: get-phpcpd composer checkfiles start docker-test docker-sql docker-php-csv docker-php-test
 
 test: rector phpcpd phpmd phpstan psalm
 
@@ -10,6 +10,10 @@ get-phpcpd:
 
 composer:
 	composer update
+
+checkfiles:
+	echo "{}" > settings.json
+	chmod a+rw settings.json
 
 start:
 	docker-compose up -d

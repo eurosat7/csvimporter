@@ -1,8 +1,9 @@
 html, body {
     line-height: 1.3em;
-    font-family: verdana, tahoma, arial, sans-serif;
+    font-family:  tahoma, arial, sans-serif;
     background-color: #f0f0f0;
     color: #333333;
+    font-size: 20px;
 }
 
 h1, h2, h3, h4, h5, h6, header {
