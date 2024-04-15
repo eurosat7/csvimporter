@@ -19,7 +19,7 @@ if (is_array($id)) {
 /** @var string $id */
 $status = $_REQUEST['status'] === '1' ? '1' : '-1';
 
-usleep(500_000);
+usleep(100_000);
 $settings = $settingsManager->read();
 $settingsManager->modify($id, $status);
 $length = $settingsManager->write();

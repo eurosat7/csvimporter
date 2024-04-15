@@ -37,3 +37,6 @@
     border-left-width: 1.0em;
 }
 
+.settings-switch-loaded{
+    cursor: pointer;
+}

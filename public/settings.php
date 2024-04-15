@@ -15,8 +15,8 @@ $settingsManager = new SettingsManager($config);
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <link rel="stylesheet" href="assets/minimum.css">
-    <link rel="stylesheet" href="assets/settings-switch.css">
+    <link rel="stylesheet" href="assets/theme/minimum.css">
+    <link rel="stylesheet" href="assets/settings-switch/index.css">
 </head>
 <body>
 <?php
@@ -35,5 +35,5 @@ foreach ($config->allowed as $setting) {
 }
 ?>
 </body>
-<script src="assets/settings-switch.js" async></script>
+<script src="assets/settings-switch/index.js" type="module" async></script>
 </html>
