@@ -4,6 +4,19 @@ This repository is for learning purposes.
 
 I use it on reddit to show people tricks and pitfalls.
 
+## focus
+
+This are the things I would like to point you to:
+
+- Constructor Injection only
+- complete Type Declarations
+- config as DTO (no parsing)
+- obey to standards (like per-cs 2.0)
+- qa tooling (rector, phpcpd, phpmd, phpstan, psalm)
+- non blocking php sessions with memcached
+- generic building of mysqli prepared statements
+- composition with interfaces (DatabaseHandler&HasTransaction)
+
 ## pre requisites
 
 First: Please do not use windows. This will make your life easier.
