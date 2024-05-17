@@ -1,12 +1,15 @@
 default: init
 
-init: get-phpcpd composer checkfiles start docker-test docker-sql docker-php-csv docker-php-test
+init: get-phpcpd checkfiles start docker-composer docker-test docker-sql docker-php-csv docker-php-test
 
 test: rector phpcpd phpmd phpstan psalm
 
 get-phpcpd:
 	wget https://phar.phpunit.de/phpcpd.phar -nc -O ./phpcpd.phar || true
 	chmod +x ./phpcpd.phar
+
+docker-composer: start
+	docker-compose exec webserver make composer
 
 composer:
 	composer update
