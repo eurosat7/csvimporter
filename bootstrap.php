@@ -28,7 +28,7 @@ $controller = new CsvImportController(
 
 $te->setController($controller);
 $controller->setFile($_FILES['file']['tmp_name'] ?? null);
-
+$te->setContentByController($controller);
 $te->page(
     'index',
     [
