@@ -43,18 +43,18 @@ class SettingsManager
         return $this->settings;
     }
 
-    public function write(): int
+    public function write(): bool
     {
         try {
             $jsonEncoded = json_encode($this->settings, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT);
             file_put_contents($this->config->filename, $jsonEncoded);
             $filesize = filesize($this->config->filename);
             if ($filesize === false) {
-                return -1;
+                return false;
             }
-            return $filesize;
+            return $filesize > 0;
         } catch (JsonException) {
-            return -1;
+            return false;
         }
     }
 
