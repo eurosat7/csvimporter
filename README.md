@@ -8,6 +8,7 @@ I use it on reddit to show people tricks and pitfalls.
 
 This are the things I would like to point you to:
 
+- composer autoloader
 - Constructor Injection only
 - complete Type Declarations
 - config as DTO (no parsing)
@@ -16,6 +17,8 @@ This are the things I would like to point you to:
 - non blocking php sessions with memcached
 - generic building of mysqli prepared statements
 - composition with interfaces (DatabaseHandler&HasTransaction)
+- basic docker setup
+- using make (Makefile)
 
 ## pre requisites
 
