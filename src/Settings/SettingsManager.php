@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Eurosat7\Csvimporter\Settings;
 
 use JsonException;
+use RuntimeException;
 
 class SettingsManager
 {
@@ -15,7 +16,6 @@ class SettingsManager
         public readonly SettingsConfig $config
     )
     {
-
     }
 
     /**
@@ -43,18 +43,13 @@ class SettingsManager
         return $this->settings;
     }
 
-    public function write(): bool
+    /** @throws RuntimeException|JsonException */
+    public function write(): void
     {
-        try {
-            $jsonEncoded = json_encode($this->settings, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT);
-            file_put_contents($this->config->filename, $jsonEncoded);
-            $filesize = filesize($this->config->filename);
-            if ($filesize === false) {
-                return false;
-            }
-            return $filesize > 0;
-        } catch (JsonException) {
-            return false;
+        $jsonEncoded = json_encode($this->settings, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT);
+        $success = file_put_contents($this->config->filename, $jsonEncoded);
+        if ($success === false || $success === 0) {
+            throw new RuntimeException('unable to save settings');
         }
     }
 
