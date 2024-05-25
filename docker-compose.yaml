@@ -1,9 +1,7 @@
-# Use root/example as user/password credentials
-version: '3.7'
-
+# docker version >= 26.1.1
 services:
   webserver:
-    image: phpstorm/php-apache:8.2-xdebug3.2
+    image: phpstorm/php-apache:8.3
     restart: always
     ports:
       - "8089:80"

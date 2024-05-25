@@ -9,7 +9,7 @@ get-phpcpd:
 	chmod +x ./phpcpd.phar
 
 docker-composer: start
-	docker-compose exec webserver make composer
+	docker compose exec webserver make composer
 
 composer:
 	composer update
@@ -19,21 +19,21 @@ checkfiles:
 	chmod a+rw settings.json
 
 start:
-	docker-compose up -d
+	docker compose up -d
 	@echo "you can now open the browser to test the upload form: http://localhost:8089/public/"
 	@echo "or adminer to look into the database: http://localhost:8080/?server=mysql-csvimporter&username=csvimporter&db=csv&password=csvimporterpassword"
 	@echo "or telnet with memcached: tcp://localhost:12221"
 	@echo "to shutdown docker run: make stop"
 
 stop:
-	docker-compose down
+	docker compose down
 
 docker-sql:
 	docker exec -i csvimporter_mysql-csvimporter_1 mysql -uroot -pexample < dist/fixtures.sql
 	echo "database, table and account should be created now."
 
 docker-php-csv:
-	docker-compose exec webserver php public/generatecsv.php
+	docker compose exec webserver php public/generatecsv.php
 
 rector:
 	./vendor/bin/rector -n
