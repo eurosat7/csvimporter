@@ -15,10 +15,17 @@ use RuntimeException;
 class TemplateEngine
 {
     private ?CanProcess $controller = null; // code smell, controller might not be defined!
+    private const CONTENT = "TE_CONTENT";
+
+    /** @var array<string,mixed|string> $var */
+    private array $var = [
+        self::CONTENT => "",
+    ];
 
     public function __construct(
         private string $rootdir
-    ) {
+    )
+    {
         $this->rootdir = rtrim($this->rootdir, '/') . '/';
     }
 
@@ -36,11 +43,9 @@ class TemplateEngine
     public function incl(string $templateEnginePath, array $vars = []): void
     {
         $templateEnginePath = $this->rootdir . ltrim($templateEnginePath, '/');
-
-        extract($vars); // bad style! On top of that: To make overriding the first parameter harder we named it stupidly long :(
+        $this->setVars($vars);
 
         $te = $this;
-        $controller = $this->controller;
 
         /** @psalm-suppress UnresolvableInclude */
         require $templateEnginePath;
@@ -64,13 +69,83 @@ class TemplateEngine
      */
     public function defaults(string $templateEnginePath, array $vars = []): void
     {
+        if ($vars === []) {
+            $vars = $this->var;
+        }
         $templateEnginePath = preg_replace('/\.php$/', '', $templateEnginePath) . '.php';
         $templateEnginePath = 'defaults/' . ltrim($templateEnginePath, '/');
         $this->incl($templateEnginePath, $vars);
     }
 
-    public function esc(string $string): void
+    public function esc(mixed $string): void
     {
+        if (!is_string($string)) {
+            $string = $this->stringify($string);
+        }
         echo htmlspecialchars($string);
+    }
+
+    public function escVar(string $var): void
+    {
+        $this->esc($this->stringify($this->getVar($var)));
+    }
+
+    public function getVar(string $var): mixed
+    {
+        return $this->var[$var];
+    }
+
+    public function setVar(string $var, mixed $value): void
+    {
+        $this->var[$var] = $value;
+    }
+
+    /**
+     * @param array<string,mixed> $values
+     */
+    public function setVars(array $values): void
+    {
+        /** @psalm-suppress  MixedAssignment */
+        foreach ($values as $key => $value) {
+            $this->setVar($key, $value);
+        }
+    }
+
+    public function setContentByController(CanProcess $controller): void
+    {
+        ob_start();
+        $controller->process();
+        $content = ob_get_clean();
+        if ($content === false) {
+            $content = "";
+        }
+        $this->setVar(self::CONTENT, $content);
+    }
+
+    public function writeContent(): void
+    {
+        echo $this->stringify($this->getVar(self::CONTENT));
+    }
+
+    private function stringify(mixed $value): string
+    {
+        if (is_string($value)) {
+            return $value;
+        }
+        if ($value === null) {
+            return "";
+        }
+        if ($value instanceof \DateTime) {
+            return $value->format('d.m.Y H:i:s');
+        }
+        if (is_object($value) && method_exists($value, '__toString')) {
+            /** @var string $string */
+            $string = $value->__toString();
+            return $string;
+        }
+        if (is_scalar($value)) {
+            return (string) $value;
+        }
+        throw new RuntimeException('cannot stringify $value');
     }
 }
