@@ -2,16 +2,13 @@
 
 declare(strict_types=1);
 
-use Eurosat7\Csvimporter\Controller\CsvImportController;
 use Eurosat7\Csvimporter\Services\TemplateEngine;
 
 /**
- * @var CsvImportController $controller
  * @var TemplateEngine $te
- * @var array<string,mixed> $vars
  */
 
-$te->defaults('header', $vars); // allthough this looks cool we have no auto completion; Our IDE cannot help us!
+$te->defaults('header'); // allthough this looks cool we have no auto completion; Our IDE cannot help us!
 ?>
 
     <form method="post" enctype="multipart/form-data">
@@ -23,10 +20,7 @@ $te->defaults('header', $vars); // allthough this looks cool we have no auto com
             <input type="submit" value="upload and import"/>
         </div>
     </form>
-    <pre><?php
-        $controller->process(); ?></pre>
+    <pre><?php $te->writeContent(); ?></pre>
 
-<?php
-$te->defaults('debug'); ?>
-<?php
-$te->defaults('footer');
+<?php $te->defaults('debug'); ?>
+<?php $te->defaults('footer');
