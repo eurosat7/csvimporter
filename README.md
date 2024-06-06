@@ -29,8 +29,7 @@ I suggest Ubuntu 22. It can boot from an usb stick.
 You need to have the following installed on your machine:
 
 - git
-- docker
-- docker-compose
+- docker (and docker-compose)
 - make
 - composer
 
